@@ -1,0 +1,8 @@
+{
+    "neverLetScrapsFallBelow": 3,
+    "neverLetScrapsGoOver": 6,
+    "neverLetReclaimedFallBelow": 3,
+    "neverLetReclaimedGoOver": 6,
+    "avoidMetalInActiveTradeOffers": true,
+    "oneShot": true
+}

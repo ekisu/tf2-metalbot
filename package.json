@@ -1,0 +1,27 @@
+{
+  "name": "tf2-metalbot",
+  "version": "0.0.1",
+  "description": "Automatically smelts/combines metal when it goes below a threshold.",
+  "main": "src/main.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "dependencies": {
+    "colors": "^1.1.2",
+    "prompt-sync": "^4.1.4",
+    "steam-tradeoffer-manager": "^2.7.0",
+    "steam-user": "^3.19.1",
+    "steamcommunity": "^3.30.7",
+    "tf2": "^2.1.1"
+  },
+  "devDependencies": {
+    "@types/colors": "^1.1.3",
+    "@types/node": "^7.0.13",
+    "@types/prompt-sync": "^4.1.0",
+    "typescript": "^2.2.2"
+  },
+  "author": "ElegantMonkey",
+  "license": "MIT",
+  "repository": "ElegantMonkey/tf2-metalbot"
+}
