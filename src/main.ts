@@ -19,18 +19,18 @@ var backpackUpdateTimeout = null;
 var tradeOfferManager = new TradeOfferManager();
 
 function promptLogin() {
-    let accountName = prompt("Username: ".green);
-    let password = prompt.hide("Password: ".green);
-    let rememberLogin = prompt("Remember login? (y/n) ".yellow).toLowerCase() == "y";
+	let accountName = prompt("Username: ".green);
+	let password = prompt.hide("Password: ".green);
+	let rememberLogin = prompt("Remember login? (y/n) ".yellow).toLowerCase() == "y";
 
-    config.set("accountName", accountName);
-    config.save();
+	config.set("accountName", accountName);
+	config.save();
 
-    client.logOn({
-        "accountName": accountName,
-        "password": password,
-        "rememberPassword": rememberLogin // With this we can get the loginKey.
-    });
+	client.logOn({
+		"accountName": accountName,
+		"password": password,
+		"rememberPassword": rememberLogin // With this we can get the loginKey.
+	});
 }
 
 if (config.get("loginKey")) {
@@ -80,7 +80,7 @@ async function onBackpackUpdated() {
 
 		if (usableScraps.length < scrapCount
 		    || usableReclaimeds.length < recCount
-			|| usableRefineds.length < refCount) {
+		    || usableRefineds.length < refCount) {
 			console.log("Note: We have %d refined, %d reclaimed and %d scrap(s) on active trade offers.".yellow, refCount - usableRefineds.length, recCount - usableReclaimeds.length, scrapCount - usableScraps.length);
 		}
 	}
@@ -109,9 +109,9 @@ async function onBackpackUpdated() {
 		let reclaimedToSmelt = Math.ceil(scrapDelta / 3);
 		console.log("Smelting ".green + "%d".blue + " reclaimed to obtain ".green + "%d".blue + " scrap (current scraps: %d)".green, reclaimedToSmelt, scrapDelta, scrapCount);
 		if (reclaimedToSmelt > usableReclaimeds.length) {
-            console.log(("We should have %d reclaimeds to balance the scraps, but we " + (usableReclaimeds.length > 0) ? ("only have " + usableReclaimeds.length) : "have none. Skipping.").magenta, reclaimedToSmelt);
-            reclaimedToSmelt = usableReclaimeds.length;
-        }
+			console.log(("We should have %d reclaimeds to balance the scraps, but we " + (usableReclaimeds.length > 0) ? ("only have " + usableReclaimeds.length) : "have none. Skipping.").magenta, reclaimedToSmelt);
+			reclaimedToSmelt = usableReclaimeds.length;
+		}
 
 		for (let i = 0; i < reclaimedToSmelt; i++) {
 			metalCrafter.smeltReclaimed(usableReclaimeds[i].id);
@@ -131,27 +131,27 @@ async function onBackpackUpdated() {
 		let refinedToCraft = Math.ceil(Math.abs(reclaimedDelta) / 3);
 		console.log("Crafting ".green + "%d".blue + " refined to get rid of ".green + "%d".blue + " reclaimed (current reclaimed: %d).", refinedToCraft, -reclaimedDelta, recCount);
 
-        for (let i = 0; i < refinedToCraft; i++) {
-            let reclaimedsToUseInCraft = usableReclaimeds.slice(i*3, i*3+3).map((item) => item.id);
+		for (let i = 0; i < refinedToCraft; i++) {
+			let reclaimedsToUseInCraft = usableReclaimeds.slice(i*3, i*3+3).map((item) => item.id);
 
-            metalCrafter.combineReclaimed(reclaimedsToUseInCraft);
-        }
+			metalCrafter.combineReclaimed(reclaimedsToUseInCraft);
+		}
 
-        return; // If there is more work to do, when the backpack updates we will run this again, so no problem, I guess.
-    } else if (reclaimedDelta > 0) {
-        let refinedToSmelt = Math.ceil(reclaimedDelta / 3);
+		return; // If there is more work to do, when the backpack updates we will run this again, so no problem, I guess.
+	} else if (reclaimedDelta > 0) {
+		let refinedToSmelt = Math.ceil(reclaimedDelta / 3);
 		console.log("Smelting ".green + "%d".blue + " refined to obtain ".green + "%d".blue + " reclaimed (current reclaimed: %d)".green, refinedToSmelt, reclaimedDelta, recCount);
 		if (refinedToSmelt > usableRefineds.length) {
 			console.log(("We should have %d refineds to balance the reclaimeds, but we " +
 			            ((usableRefineds.length > 0) ? ("only have " + usableRefineds.length + ".") : "have none. Skipping.") +
-						(config.get("avoidMetalInActiveTradeOffers") ? " Maybe some metal are in trade offers?" : "")).magenta,
-						refinedToSmelt);
+			            (config.get("avoidMetalInActiveTradeOffers") ? " Maybe some metal are in trade offers?" : "")).magenta,
+			            refinedToSmelt);
 			refinedToSmelt = usableRefineds.length;
 		}
 
-        for (let i = 0; i < refinedToSmelt; i++) {
-            metalCrafter.smeltRefined(usableRefineds[i].id);
-        }
+		for (let i = 0; i < refinedToSmelt; i++) {
+			metalCrafter.smeltRefined(usableRefineds[i].id);
+		}
 
 		if (refinedToSmelt > 0) return;
 	}
@@ -171,7 +171,7 @@ function scheduleBackpackUpdate() {
 	if (!tf2.backpack) {
 		return;
 	}
-	
+
 
 	if (backpackUpdateTimeout != null) {
 		clearTimeout(backpackUpdateTimeout);
@@ -211,17 +211,17 @@ client.on("webSession", (sessionID: string, cookies: Array<string>) => {
 
 client.on("error", (error) => {
 	switch (error.message) {
-	case "InvalidPassword":
-		console.log("Apparently our login is invalid. Please input your credentials again");
-		promptLogin();
-		break;
-	case "LoggedInElsewhere":
-		console.log("This account has been logged in elsewhere. Exiting...");
-		process.exit(0);
-		break;
-	default:
-		console.log("Uncaught error. This should be reported.")
-		throw error;
+		case "InvalidPassword":
+			console.log("Apparently our login is invalid. Please input your credentials again");
+			promptLogin();
+			break;
+		case "LoggedInElsewhere":
+			console.log("This account has been logged in elsewhere. Exiting...");
+			process.exit(0);
+			break;
+		default:
+			console.log("Uncaught error. This should be reported.")
+			throw error;
 	}
 })
 
@@ -231,4 +231,3 @@ tf2.on("itemRemoved", (_) => scheduleBackpackUpdate());
 tf2.on("craftingComplete", (recipe, itemsGained) => {
 	if (recipe == -1) console.log("A craft has failed.".red)
 });
-
