@@ -3,10 +3,10 @@ import { TradeOffer, EconItem } from "steam-tradeoffer-manager";
 import { distinctBy } from "./utils";
 
 export enum ItemDefIndex {
-	ScrapMetal				= 5000,
-	ReclaimedMetal			= 5001,
-	RefinedMetal			= 5002,
-	MannCoSupplyCrateKey	= 5021,
+	ScrapMetal           = 5000,
+	ReclaimedMetal       = 5001,
+	RefinedMetal         = 5002,
+	MannCoSupplyCrateKey = 5021,
 }
 
 export namespace BackpackFunctions {
