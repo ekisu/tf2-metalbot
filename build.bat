@@ -2,4 +2,4 @@
 npm install
 node_modules/.bin/tsc
 echo "Done!"
-pause
+IF /I NOT "%1" == "/nopause" pause
