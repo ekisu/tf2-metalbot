@@ -1,4 +1,4 @@
 @echo off
-IF NOT EXIST src\main.js build.bat /nopause
-node src\main.js
+IF NOT EXIST src\main.js call build.bat /nopause
+call node src\main.js
 pause
