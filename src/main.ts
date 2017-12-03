@@ -3,6 +3,7 @@ import { Config } from "./config";
 import { MetalCrafting } from "./crafting/metal";
 import { ItemDefIndex, BackpackFunctions, TradeOfferFunctions } from "./items";
 import * as SteamUser from "steam-user";
+import * as SteamAuth from "steamauth";
 import * as TeamFortress2 from "tf2";
 import * as promptcreate from "prompt-sync";
 import "colors";
@@ -11,7 +12,20 @@ import { TradeOffer, EOfferFilter } from "steam-tradeoffer-manager";
 
 var prompt = promptcreate();
 var config = new Config("./config.json");
-var client = new SteamUser();
+var auth : SteamAuth = null;
+
+// Only create SteamAuth if we have a shared secret.
+if (config.get("sharedSecret", "") != "") {
+	auth = new SteamAuth({
+		shared_secret: config.get("sharedSecret", "")
+	});
+}
+
+var client = new SteamUser({
+	// Do not prompt for Steam Guard if we have SteamAuth, use it to calculate instead.
+	promptSteamGuardCode: (auth == null)
+});
+
 var tf2 = new TeamFortress2(client);
 var rules = new Rules(config);
 var metalCrafter = new MetalCrafting(tf2);
@@ -186,6 +200,18 @@ client.on("loggedOn", (details) => {
 	console.log("We logged on, setting our game to TF2".cyan);
 	client.setPersona(SteamUser.EPersonaState.Online);
 	client.gamesPlayed(440);
+});
+
+client.on("steamGuard", (domain, callback, lastCodeWrong) =>{
+	if (!auth) {
+		console.log(("We were requested to generate a Steam Guard code, however there's no "
+					+ "SteamAuth instance. This should be reported.").red)
+		throw new Error("noSteamAuth");
+	}
+
+	let code = auth.calculateCode();
+	console.log(("Generated " + code + " as Steam Guard code.").magenta);
+	callback(code);
 });
 
 client.on("loginKey", (key) => {

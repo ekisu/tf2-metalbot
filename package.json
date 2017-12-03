@@ -12,6 +12,7 @@
     "prompt-sync": "^4.1.4",
     "steam-tradeoffer-manager": "^2.7.0",
     "steam-user": "^3.19.1",
+    "steamauth": "^0.1.5",
     "steamcommunity": "^3.30.7",
     "tf2": "^2.1.1"
   },

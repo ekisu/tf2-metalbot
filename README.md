@@ -27,6 +27,7 @@ The file `config.json` has a few options you can configure:
 - **oneShot**: If true, will only load your backpack and balance your metal once, and will exit. Otherwise, will actively monitor your backpack for changes. Default is false.
 - **accountName**: Stores your account name. Shouldn't be modified manually.
 - **loginKey**: Stores your login key, if you opted to remember the login. *Keep this secret*.
+- **sharedSecret**: Stores your shared secret, which, when set, can be used to avoid prompting for Steam Guard codes. Like loginKey, *keep this secret*.
 
 ## TODOs/Remarks
 - Right now, as it needs to interact with the GC to both monitor your backpack and craft metal, while the bot is running, your account will seem to be playing TF2.
